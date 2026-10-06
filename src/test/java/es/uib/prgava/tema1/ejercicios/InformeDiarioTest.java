@@ -10,7 +10,8 @@ import es.uib.prgava.tema1.monitor.RepositorioEnMemoria;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /** Ejercicio 1.2.5: se prueba sin mirar la consola, que es de lo que se trataba. */
-class InformeDiarioTest {
+class
+InformeDiarioTest {
 
     /** Salida de mentira: en lugar de imprimir, guarda. */
     private static final class SalidaGuardada implements Salida {

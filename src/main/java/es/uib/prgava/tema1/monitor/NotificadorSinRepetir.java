@@ -1,5 +1,9 @@
 package es.uib.prgava.tema1.monitor;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 /**
  * Ejercicio 1.2.6. Notificador que filtra lo repetido: del mismo servicio, solo el primer
  * aviso.
@@ -9,24 +13,23 @@ package es.uib.prgava.tema1.monitor;
  */
 public final class NotificadorSinRepetir implements Notificador {
 
-    // TODO 1.2.6: recuerda aquí los servicios ya notificados. Un Set<Servicio> es el tipo
-    // adecuado para «¿está este ya?», y funciona porque los servicios son registros y traen
-    // equals y hashCode escritos.
+    private final Notificador destino;
+    private final Set<Servicio> notificados = new HashSet<>();
 
     public NotificadorSinRepetir(Notificador destino) {
-        // TODO 1.2.6
-        throw new UnsupportedOperationException("TODO 1.2.6: constructor de NotificadorSinRepetir");
+        this.destino = Objects.requireNonNull(destino, "destino");
     }
 
     @Override
     public void notificar(Alerta alerta) {
-        // TODO 1.2.6: reenvía al destino solo la primera vez que ves ese servicio.
-        throw new UnsupportedOperationException("TODO 1.2.6: NotificadorSinRepetir.notificar");
+        Objects.requireNonNull(alerta, "alerta");
+        if (notificados.add(alerta.servicio())) {
+            destino.notificar(alerta);
+        }
     }
 
     /** Para que un servicio que se recupera vuelva a poder avisar. */
     public void olvidar(Servicio servicio) {
-        // TODO 1.2.6
-        throw new UnsupportedOperationException("TODO 1.2.6: NotificadorSinRepetir.olvidar");
+        notificados.remove(servicio);
     }
 }

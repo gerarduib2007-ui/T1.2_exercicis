@@ -56,10 +56,20 @@ public record DireccionIpv4(int primero, int segundo, int tercero, int cuarto)
      * repitas esa comprobación aquí.
      */
     public static DireccionIpv4 desde(String texto) {
-        // TODO 1.2.7: parte por los puntos, convierte cada parte y construye el registro.
-        // Decide y justifica en un comentario qué pasa si no hay cuatro partes o si una
-        // de ellas no es un número.
-        throw new UnsupportedOperationException("TODO 1.2.7: DireccionIpv4.desde");
+        // Una cantidad distinta de cuatro partes no puede describir esta dirección: se rechaza
+        // con IllegalArgumentException. split conserva las partes vacías finales para que
+        // "1.2.3." también se detecte como mal formado. parseInt ya rechaza texto no numérico
+        // con NumberFormatException (subclase de IllegalArgumentException). Si el número está
+        // fuera de 0..255, dejamos que el constructor aplique su validación única.
+        String[] partes = texto.split("\\.", -1);
+        if (partes.length != 4) {
+            throw new IllegalArgumentException("Se esperaban cuatro octetos: " + texto);
+        }
+        return new DireccionIpv4(
+                Integer.parseInt(partes[0]),
+                Integer.parseInt(partes[1]),
+                Integer.parseInt(partes[2]),
+                Integer.parseInt(partes[3]));
     }
 
     /** Devuelve la forma habitual, por ejemplo {@code 192.168.1.1}. */

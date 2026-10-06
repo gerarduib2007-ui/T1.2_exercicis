@@ -43,4 +43,5 @@ class ListaSoloLecturaTest {
         List<String> comoSuperclase = new ListaSoloLecturaHeredada(TRES);
         assertThrows(UnsupportedOperationException.class, () -> comoSuperclase.add("d"));
     }
+
 }

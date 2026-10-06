@@ -9,7 +9,6 @@ public record ServicioPing(String host) implements Servicio {
 
     @Override
     public String nombre() {
-        // TODO 1.2.7
-        throw new UnsupportedOperationException("TODO 1.2.7: ServicioPing.nombre");
+        return "ping:" + host;
     }
 }

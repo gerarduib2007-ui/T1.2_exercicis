@@ -18,7 +18,12 @@ public final class FallosEnVentana implements PoliticaDeAlerta {
      */
     public FallosEnVentana(int minimoFallos, int tamanoVentana) {
         // TODO 1.2.2: valida los dos parámetros antes de asignarlos.
-        throw new UnsupportedOperationException("TODO 1.2.2: constructor de FallosEnVentana");
+        if (minimoFallos < 1 || minimoFallos > tamanoVentana) {
+            throw new IllegalArgumentException(
+                    "Debe cumplirse 1 <= minimoFallos <= tamanoVentana.");
+        }
+        this.minimoFallos = minimoFallos;
+        this.tamanoVentana = tamanoVentana;
     }
 
     /**
@@ -29,13 +34,23 @@ public final class FallosEnVentana implements PoliticaDeAlerta {
     @Override
     public boolean debeAlertar(List<Resultado> historial) {
         // TODO 1.2.2
-        throw new UnsupportedOperationException("TODO 1.2.2: FallosEnVentana.debeAlertar");
+        int inicio = Math.max(0, historial.size() - tamanoVentana);
+        int fallos = 0;
+        for (int i = inicio; i < historial.size(); i++) {
+            if (historial.get(i).esFallo()) {
+                fallos++;
+                if (fallos >= minimoFallos) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
-
     /** Descriptivo: el Monitor lo usa al componer el mensaje de la alerta. */
     @Override
     public String toString() {
         // TODO 1.2.2
-        throw new UnsupportedOperationException("TODO 1.2.2: FallosEnVentana.toString");
+        return "FallosEnVentana{minimoFallos=" + minimoFallos
+                + ", tamanoVentana=" + tamanoVentana + '}';
     }
 }

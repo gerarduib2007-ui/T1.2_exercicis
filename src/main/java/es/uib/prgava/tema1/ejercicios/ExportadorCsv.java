@@ -5,10 +5,9 @@ import java.util.List;
 /**
  * Ejercicio 1.2.4. Solo exporta: recibe las fichas ya hechas y las convierte a texto.
  *
- * <p>Esta clase <strong>ya está escrita</strong>. De los ocho métodos de la interfaz le
- * interesa uno.
+ * <p>Esta clase <strong>ya está escrita</strong>. Solo cumple el contrato de exportación CSV.
  */
-public final class ExportadorCsv implements GestorDispositivos {
+public final class ExportadorCsv implements ExportadorDispositivos {
 
     private final List<FichaDispositivo> fichas;
 
@@ -16,32 +15,7 @@ public final class ExportadorCsv implements GestorDispositivos {
         this.fichas = List.copyOf(fichas);
     }
 
-    @Override
-    public void darDeAlta(String nombre, String direccionIp) {
-        // no aplica
-    }
-
-    @Override
-    public void borrar(String nombre) {
-        // no aplica
-    }
-
-    @Override
-    public void renombrar(String nombre, String nuevoNombre) {
-        // no aplica
-    }
-
-    @Override
-    public boolean existe(String nombre) {
-        throw new UnsupportedOperationException("este exportador no consulta");
-    }
-
-    @Override
-    public List<String> nombres() {
-        throw new UnsupportedOperationException("este exportador no consulta");
-    }
-
-    @Override
+    /** Número de fichas que se exportarán. */
     public int cuantos() {
         return fichas.size();
     }
@@ -53,10 +27,5 @@ public final class ExportadorCsv implements GestorDispositivos {
             texto.append(ficha.nombre()).append(';').append(ficha.direccionIp()).append('\n');
         }
         return texto.toString();
-    }
-
-    @Override
-    public String exportarJson() {
-        throw new UnsupportedOperationException("este exportador solo hace CSV");
     }
 }

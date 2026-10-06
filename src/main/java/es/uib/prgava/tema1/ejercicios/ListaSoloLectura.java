@@ -14,33 +14,37 @@ public final class ListaSoloLectura {
     private final List<String> elementos;
 
     public ListaSoloLectura(List<String> elementos) {
-        // TODO 1.2.3: guarda una copia inmutable, no la lista que te pasan.
-        throw new UnsupportedOperationException("TODO 1.2.3: constructor de ListaSoloLectura");
+        this.elementos = List.copyOf(elementos);
     }
 
     public int tamano() {
-        // TODO 1.2.3
-        throw new UnsupportedOperationException("TODO 1.2.3: ListaSoloLectura.tamano");
+        return elementos.size();
     }
 
     public String get(int indice) {
-        // TODO 1.2.3
-        throw new UnsupportedOperationException("TODO 1.2.3: ListaSoloLectura.get");
+        return elementos.get(indice);
     }
 
     public boolean contiene(String elemento) {
-        // TODO 1.2.3
-        throw new UnsupportedOperationException("TODO 1.2.3: ListaSoloLectura.contiene");
+        return elementos.contains(elemento);
     }
 
     /** Para poder recorrerla en un for-each sin poder modificarla. */
     public List<String> comoLista() {
-        // TODO 1.2.3
-        throw new UnsupportedOperationException("TODO 1.2.3: ListaSoloLectura.comoLista");
+        return elementos;
     }
 
-    // TODO 1.2.3: escribe aquí el método del paso 1 del enunciado (recibe una List<String>,
-    // le añade un elemento y devuelve el tamaño), pruébalo con una ArrayList y con una
-    // ListaSoloLecturaHeredada, y explica en un comentario por qué es una violación del
-    // principio de sustitución.
+    /**
+     * Intenta añadir un elemento a cualquier lista y devuelve el tamaño resultante.
+     *
+     * <p>Con una {@code ArrayList} normal, la operación tiene éxito y devuelve el tamaño
+     * actualizado. Si se le pasa una {@link ListaSoloLecturaHeredada}, lanza
+     * {@link UnsupportedOperationException}. Esto viola el principio de sustitución:
+     * aunque la lista heredada es una {@code List<String>}, no puede usarse donde se espera
+     * una lista modificable sin cambiar el comportamiento esperado.
+     */
+    public static int añadirYDevolverTamano(List<String> lista) {
+        lista.add("nuevo elemento");
+        return lista.size();
+    }
 }

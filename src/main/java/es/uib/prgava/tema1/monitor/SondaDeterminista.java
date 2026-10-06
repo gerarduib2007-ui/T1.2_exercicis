@@ -29,7 +29,9 @@ public final class SondaDeterminista extends SondaBase {
      */
     @Override
     protected Optional<Duration> medir(Servicio servicio) {
-        // TODO 1.2.8
-        throw new UnsupportedOperationException("TODO 1.2.8: SondaDeterminista.medir");
+        if (llamadas >= latencias.size()) {
+            return Optional.empty();
+        }
+        return Optional.of(latencias.get(llamadas++));
     }
 }

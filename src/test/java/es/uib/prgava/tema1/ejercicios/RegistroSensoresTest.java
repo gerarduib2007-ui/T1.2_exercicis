@@ -1,5 +1,6 @@
 package es.uib.prgava.tema1.ejercicios;
 
+import es.uib.prgava.tema1.ejercicios.registroSensores.RegistroSensores;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

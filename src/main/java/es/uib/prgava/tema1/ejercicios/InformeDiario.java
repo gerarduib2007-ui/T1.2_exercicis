@@ -1,6 +1,7 @@
 package es.uib.prgava.tema1.ejercicios;
 
 import es.uib.prgava.tema1.monitor.LectorResultados;
+import es.uib.prgava.tema1.monitor.Resultado;
 import es.uib.prgava.tema1.monitor.Servicio;
 
 /**
@@ -13,12 +14,12 @@ import es.uib.prgava.tema1.monitor.Servicio;
  */
 public final class InformeDiario {
 
-    // TODO 1.2.5: declara aquí los dos colaboradores, con el tipo de la interfaz y no de la
-    // clase concreta, y guárdalos en el constructor.
+    private final LectorResultados repositorio;
+    private final Salida salida;
 
     public InformeDiario(LectorResultados repositorio, Salida salida) {
-        // TODO 1.2.5
-        throw new UnsupportedOperationException("TODO 1.2.5: constructor de InformeDiario");
+        this.repositorio = repositorio;
+        this.salida = salida;
     }
 
     /**
@@ -31,9 +32,15 @@ public final class InformeDiario {
      * </pre>
      */
     public void emitir(Servicio servicio) {
-        // TODO 1.2.5
-        throw new UnsupportedOperationException("TODO 1.2.5: InformeDiario.emitir");
+        var historial = repositorio.historial(servicio);
+        int fallos = 0;
+        for (Resultado resultado : historial) {
+            if (resultado.esFallo()) {
+                fallos++;
+            }
+        }
+        salida.escribir("servicio: " + servicio.nombre());
+        salida.escribir("comprobaciones: " + historial.size());
+        salida.escribir("fallos: " + fallos);
     }
-
-    // TODO 1.2.5: cablea en Principal, y solo ahí, las implementaciones concretas.
 }

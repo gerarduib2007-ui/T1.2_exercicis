@@ -9,7 +9,8 @@ public interface Servicio {
 
     /**
      * Crea un servicio a partir de su forma textual:
-     * {@code http://...}, {@code https://...}, {@code dns:dominio} o {@code tcp:host:puerto}.
+     * {@code http://...}, {@code https://...}, {@code dns:dominio}, {@code tcp:host:puerto}
+     * o {@code ping:host}.
      * @throws IllegalArgumentException si el texto no describe un servicio válido
      */
     static Servicio desde(String texto) {
@@ -26,6 +27,9 @@ public interface Servicio {
                 throw new IllegalArgumentException("se esperaba tcp:host:puerto, no " + t);
             }
             return new ServicioTcp(partes[0], Integer.parseInt(partes[1]));
+        }
+        if (t.startsWith("ping:")) {
+            return new ServicioPing(t.substring(5));
         }
         throw new IllegalArgumentException("tipo de servicio desconocido: " + t);
     }
