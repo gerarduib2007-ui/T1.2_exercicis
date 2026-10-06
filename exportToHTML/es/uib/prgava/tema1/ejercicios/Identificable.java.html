@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Identificable.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #68a67e; font-style: italic;}
+.s5 { color: #67a37c; font-style: italic;}
+.s6 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Identificable.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">es</span><span class="s2">.</span><span class="s1">uib</span><span class="s2">.</span><span class="s1">prgava</span><span class="s2">.</span><span class="s1">tema1</span><span class="s2">.</span><span class="s1">ejercicios</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Ejercicio 1.1.7. Una interfaz no exige parentesco.</span>
+ <span class="s3">*</span>
+ <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">La herencia solo sirve dentro de una familia: {</span><span class="s5">@code </span><span class="s3">PuntoAcceso} puede extender</span>
+ <span class="s3">* {</span><span class="s5">@code </span><span class="s3">DispositivoRed} porque es uno. Pero {</span><span class="s5">@link </span><span class="s3">Servidor} y {</span><span class="s5">@link </span><span class="s3">DireccionIpv4} no tienen</span>
+ <span class="s3">* nada en común —una es una clase con estado, el otro un {</span><span class="s5">@code </span><span class="s3">record} inmutable, y un</span>
+ <span class="s3">* {</span><span class="s5">@code </span><span class="s3">record} no puede heredar de nada— y aun así las dos pueden comprometerse a saber decir</span>
+ <span class="s3">* cómo se llaman. Eso es lo que declara una interfaz: un compromiso, no un origen.</span>
+ <span class="s3">*/</span>
+<span class="s0">public interface </span><span class="s1">Identificable </span><span class="s2">{</span>
+
+    <span class="s3">/** Cómo se identifica este objeto. Cada clase decide qué devuelve. */</span>
+    <span class="s1">String identificador</span><span class="s2">();</span>
+
+    <span class="s3">/**</span>
+     <span class="s3">* Método {</span><span class="s5">@code </span><span class="s3">default}: comportamiento </span><span class="s4">&lt;strong&gt;</span><span class="s3">derivado</span><span class="s4">&lt;/strong&gt; </span><span class="s3">del método abstracto.</span>
+     <span class="s3">*</span>
+     <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">Quien implemente la interfaz lo recibe sin escribirlo, y eso es lo que comprueba la</span>
+     <span class="s3">* prueba {</span><span class="s5">@code </span><span class="s3">laEtiquetaFuncionaEnLasDosSinQueNingunaLaEscriba}. Aquí está la utilidad real</span>
+     <span class="s3">* de los métodos {</span><span class="s5">@code </span><span class="s3">default}: añadir a una interfaz todo lo que se pueda expresar en</span>
+     <span class="s3">* función de sus métodos abstractos, sin obligar a nadie a repetirlo. Y sin romper a las clases</span>
+     <span class="s3">* que ya la implementaban, que es la razón por la que se añadieron al lenguaje.</span>
+     <span class="s3">*/</span>
+    <span class="s0">default </span><span class="s1">String etiqueta</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s6">&quot;[&quot; </span><span class="s2">+ </span><span class="s1">identificador</span><span class="s2">() + </span><span class="s6">&quot;]&quot;</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

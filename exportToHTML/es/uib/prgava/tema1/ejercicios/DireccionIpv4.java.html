@@ -1,0 +1,152 @@
+<html>
+<head>
+<title>DireccionIpv4.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #68a67e; font-style: italic;}
+.s5 { color: #67a37c; font-style: italic;}
+.s6 { color: #2aacb8;}
+.s7 { color: #6aab73;}
+.s8 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+DireccionIpv4.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">es</span><span class="s2">.</span><span class="s1">uib</span><span class="s2">.</span><span class="s1">prgava</span><span class="s2">.</span><span class="s1">tema1</span><span class="s2">.</span><span class="s1">ejercicios</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Ejercicios 1.1.1, 1.1.7, 1.1.8 y 1.2.7.</span>
+ <span class="s3">*</span>
+ <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">Por qué un {</span><span class="s5">@code </span><span class="s3">record} y no una clase: una dirección IP es un </span><span class="s4">&lt;em&gt;</span><span class="s3">valor</span><span class="s4">&lt;/em&gt;</span><span class="s3">, no una</span>
+ <span class="s3">* entidad. Dos direcciones con los mismos cuatro octetos son la misma dirección, no hay estado</span>
+ <span class="s3">* que cambie con el tiempo y no tiene identidad propia. Ese es exactamente el caso de uso de</span>
+ <span class="s3">* {</span><span class="s5">@code </span><span class="s3">record}: el compilador genera el constructor canónico, los accesores, {</span><span class="s5">@code </span><span class="s3">equals},</span>
+ <span class="s3">* {</span><span class="s5">@code </span><span class="s3">hashCode} y {</span><span class="s5">@code </span><span class="s3">toString}.</span>
+ <span class="s3">*</span>
+ <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">Por eso el enunciado prohíbe escribir {</span><span class="s5">@code </span><span class="s3">equals} y {</span><span class="s5">@code </span><span class="s3">hashCode}: el generado ya</span>
+ <span class="s3">* compara componente a componente, que es justo la igualdad que queremos, y su {</span><span class="s5">@code </span><span class="s3">hashCode}</span>
+ <span class="s3">* es coherente con él por construcción. Escribirlos a mano sería repetir trabajo del compilador</span>
+ <span class="s3">* e introducir la posibilidad de que se descoordinen, que es el defecto del ejercicio 1.1.3.</span>
+ <span class="s3">*</span>
+ <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">Un {</span><span class="s5">@code </span><span class="s3">record} no puede heredar de una clase, pero sí implementar tantas interfaces como</span>
+ <span class="s3">* quiera: aquí, {</span><span class="s5">@link </span><span class="s3">Identificable} (1.1.7) y {</span><span class="s5">@code </span><span class="s3">Comparable} (1.1.8).</span>
+ <span class="s3">*/</span>
+<span class="s0">public </span><span class="s1">record DireccionIpv4</span><span class="s2">(</span><span class="s0">int </span><span class="s1">primero</span><span class="s2">, </span><span class="s0">int </span><span class="s1">segundo</span><span class="s2">, </span><span class="s0">int </span><span class="s1">tercero</span><span class="s2">, </span><span class="s0">int </span><span class="s1">cuarto</span><span class="s2">)</span>
+        <span class="s0">implements </span><span class="s1">Identificable</span><span class="s2">, </span><span class="s1">Comparable</span><span class="s2">&lt;</span><span class="s1">DireccionIpv4</span><span class="s2">&gt; {</span>
+
+    <span class="s3">/**</span>
+     <span class="s3">* Constructor compacto: se ejecuta antes de asignar los campos y es el lugar donde se</span>
+     <span class="s3">* establece el </span><span class="s4">&lt;strong&gt;</span><span class="s3">invariante</span><span class="s4">&lt;/strong&gt; </span><span class="s3">de la clase —«los cuatro octetos están entre 0 y</span>
+     <span class="s3">* 255»—. Como los campos de un {</span><span class="s5">@code </span><span class="s3">record} son finales y esta es la única puerta de</span>
+     <span class="s3">* entrada, es imposible que exista un objeto con un octeto inválido: no hay que volver a</span>
+     <span class="s3">* comprobarlo en ningún otro sitio, ni en {</span><span class="s5">@code </span><span class="s3">desde}, ni en las clases que lo usen.</span>
+     <span class="s3">*/</span>
+    <span class="s0">public </span><span class="s1">DireccionIpv4 </span><span class="s2">{</span>
+        <span class="s1">validarOcteto</span><span class="s2">(</span><span class="s1">primero</span><span class="s2">);</span>
+        <span class="s1">validarOcteto</span><span class="s2">(</span><span class="s1">segundo</span><span class="s2">);</span>
+        <span class="s1">validarOcteto</span><span class="s2">(</span><span class="s1">tercero</span><span class="s2">);</span>
+        <span class="s1">validarOcteto</span><span class="s2">(</span><span class="s1">cuarto</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/**</span>
+     <span class="s3">* Un único punto de validación, invocado cuatro veces. La alternativa —cuatro {</span><span class="s5">@code </span><span class="s3">if}</span>
+     <span class="s3">* copiados— repite la condición y el mensaje, y cuatro copias de una regla son cuatro sitios</span>
+     <span class="s3">* que alguien tiene que acordarse de cambiar a la vez.</span>
+     <span class="s3">*</span>
+     <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">Es un método de clase ({</span><span class="s5">@code </span><span class="s3">static}) porque no consulta ningún campo: opera solo sobre</span>
+     <span class="s3">* su argumento. Y tiene que serlo, además, porque se llama desde el constructor compacto,</span>
+     <span class="s3">* antes de que el objeto exista.</span>
+     <span class="s3">*/</span>
+    <span class="s0">private static void </span><span class="s1">validarOcteto</span><span class="s2">(</span><span class="s0">int </span><span class="s1">valor</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">valor </span><span class="s2">&lt; </span><span class="s6">0 </span><span class="s2">|| </span><span class="s1">valor </span><span class="s2">&gt; </span><span class="s6">255</span><span class="s2">) {</span>
+            <span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s7">&quot;Octeto fuera de rango: &quot; </span><span class="s2">+ </span><span class="s1">valor</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/**</span>
+     <span class="s3">* Ejercicio 1.2.7. Fábrica estática: construye la dirección a partir de su forma textual.</span>
+     <span class="s3">*</span>
+     <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">El modelo es {</span><span class="s5">@code </span><span class="s3">Servicio.desde}. El constructor ya valida el rango, así que no</span>
+     <span class="s3">* repitas esa comprobación aquí.</span>
+     <span class="s3">*/</span>
+    <span class="s0">public static </span><span class="s1">DireccionIpv4 desde</span><span class="s2">(</span><span class="s1">String texto</span><span class="s2">) {</span>
+        <span class="s8">// Una cantidad distinta de cuatro partes no puede describir esta dirección: se rechaza</span>
+        <span class="s8">// con IllegalArgumentException. split conserva las partes vacías finales para que</span>
+        <span class="s8">// &quot;1.2.3.&quot; también se detecte como mal formado. parseInt ya rechaza texto no numérico</span>
+        <span class="s8">// con NumberFormatException (subclase de IllegalArgumentException). Si el número está</span>
+        <span class="s8">// fuera de 0..255, dejamos que el constructor aplique su validación única.</span>
+        <span class="s1">String</span><span class="s2">[] </span><span class="s1">partes </span><span class="s2">= </span><span class="s1">texto</span><span class="s2">.</span><span class="s1">split</span><span class="s2">(</span><span class="s7">&quot;</span><span class="s0">\\</span><span class="s7">.&quot;</span><span class="s2">, -</span><span class="s6">1</span><span class="s2">);</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">partes</span><span class="s2">.</span><span class="s1">length </span><span class="s2">!= </span><span class="s6">4</span><span class="s2">) {</span>
+            <span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s7">&quot;Se esperaban cuatro octetos: &quot; </span><span class="s2">+ </span><span class="s1">texto</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">return new </span><span class="s1">DireccionIpv4</span><span class="s2">(</span>
+                <span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">partes</span><span class="s2">[</span><span class="s6">0</span><span class="s2">]),</span>
+                <span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">partes</span><span class="s2">[</span><span class="s6">1</span><span class="s2">]),</span>
+                <span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">partes</span><span class="s2">[</span><span class="s6">2</span><span class="s2">]),</span>
+                <span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">partes</span><span class="s2">[</span><span class="s6">3</span><span class="s2">]));</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/** Devuelve la forma habitual, por ejemplo {</span><span class="s5">@code </span><span class="s3">192.168.1.1}. */</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String toString</span><span class="s2">() {</span>
+        <span class="s8">// Redefinir toString en un record es legítimo: el generado sería</span>
+        <span class="s8">// &quot;DireccionIpv4[primero=192, ...]&quot;, útil para depurar pero no para mostrar.</span>
+        <span class="s0">return </span><span class="s1">primero </span><span class="s2">+ </span><span class="s7">&quot;.&quot; </span><span class="s2">+ </span><span class="s1">segundo </span><span class="s2">+ </span><span class="s7">&quot;.&quot; </span><span class="s2">+ </span><span class="s1">tercero </span><span class="s2">+ </span><span class="s7">&quot;.&quot; </span><span class="s2">+ </span><span class="s1">cuarto</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/**</span>
+     <span class="s3">* Ejercicio 1.1.7. Se apoya en {</span><span class="s5">@code </span><span class="s3">toString}, que ya produce la forma con puntos.</span>
+     <span class="s3">*</span>
+     <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">Que los dos métodos devuelvan lo mismo hoy no significa que sobre uno: dicen cosas</span>
+     <span class="s3">* distintas. {</span><span class="s5">@code </span><span class="s3">toString} es «cómo se muestra esto»; {</span><span class="s5">@code </span><span class="s3">identificador} es «con qué</span>
+     <span class="s3">* nombre aparece en un inventario». Si mañana el inventario quisiera el prefijo {</span><span class="s5">@code </span><span class="s3">ip:},</span>
+     <span class="s3">* cambiaría uno y no el otro.</span>
+     <span class="s3">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String identificador</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">toString</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/**</span>
+     <span class="s3">* Ejercicio 1.1.8. Orden natural de una dirección: primero el primer octeto, y a igualdad el</span>
+     <span class="s3">* siguiente. Es el orden lexicográfico sobre los cuatro números, que coincide con el orden</span>
+     <span class="s3">* numérico de la dirección de 32 bits que representan.</span>
+     <span class="s3">*</span>
+     <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">Se usa {</span><span class="s5">@code </span><span class="s3">Integer.compare} y no la resta que parece equivalente: con octetos, de 0 a</span>
+     <span class="s3">* 255, la resta nunca desborda y funcionaría, pero la costumbre de restar es la que produce el</span>
+     <span class="s3">* error el día que los valores son enteros cualesquiera. Ver el Error Frecuente del tema.</span>
+     <span class="s3">*</span>
+     <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">El contrato de {</span><span class="s5">@code </span><span class="s3">Comparable} recomienda que el orden sea coherente con la igualdad,</span>
+     <span class="s3">* y aquí lo es: {</span><span class="s5">@code </span><span class="s3">compareTo} devuelve cero exactamente cuando los cuatro octetos</span>
+     <span class="s3">* coinciden, que es cuando {</span><span class="s5">@code </span><span class="s3">equals} —el generado por el {</span><span class="s5">@code </span><span class="s3">record}— dice que son</span>
+     <span class="s3">* iguales. Esa coherencia es lo que permite meter direcciones en un {</span><span class="s5">@code </span><span class="s3">TreeSet} sin</span>
+     <span class="s3">* sorpresas.</span>
+     <span class="s3">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public int </span><span class="s1">compareTo</span><span class="s2">(</span><span class="s1">DireccionIpv4 otra</span><span class="s2">) {</span>
+        <span class="s0">int </span><span class="s1">c </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">compare</span><span class="s2">(</span><span class="s1">primero</span><span class="s2">, </span><span class="s1">otra</span><span class="s2">.</span><span class="s1">primero</span><span class="s2">());</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">c </span><span class="s2">!= </span><span class="s6">0</span><span class="s2">) {</span>
+            <span class="s0">return </span><span class="s1">c</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s1">c </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">compare</span><span class="s2">(</span><span class="s1">segundo</span><span class="s2">, </span><span class="s1">otra</span><span class="s2">.</span><span class="s1">segundo</span><span class="s2">());</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">c </span><span class="s2">!= </span><span class="s6">0</span><span class="s2">) {</span>
+            <span class="s0">return </span><span class="s1">c</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s1">c </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">compare</span><span class="s2">(</span><span class="s1">tercero</span><span class="s2">, </span><span class="s1">otra</span><span class="s2">.</span><span class="s1">tercero</span><span class="s2">());</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">c </span><span class="s2">!= </span><span class="s6">0</span><span class="s2">) {</span>
+            <span class="s0">return </span><span class="s1">c</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">compare</span><span class="s2">(</span><span class="s1">cuarto</span><span class="s2">, </span><span class="s1">otra</span><span class="s2">.</span><span class="s1">cuarto</span><span class="s2">());</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

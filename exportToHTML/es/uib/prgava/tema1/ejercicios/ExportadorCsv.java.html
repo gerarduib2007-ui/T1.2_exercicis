@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>ExportadorCsv.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #68a67e; font-style: italic;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ExportadorCsv.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">es</span><span class="s2">.</span><span class="s1">uib</span><span class="s2">.</span><span class="s1">prgava</span><span class="s2">.</span><span class="s1">tema1</span><span class="s2">.</span><span class="s1">ejercicios</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Ejercicio 1.2.4. Solo exporta: recibe las fichas ya hechas y las convierte a texto.</span>
+ <span class="s3">*</span>
+ <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">Esta clase </span><span class="s4">&lt;strong&gt;</span><span class="s3">ya está escrita</span><span class="s4">&lt;/strong&gt;</span><span class="s3">. Solo cumple el contrato de exportación CSV.</span>
+ <span class="s3">*/</span>
+<span class="s0">public final class </span><span class="s1">ExportadorCsv </span><span class="s0">implements </span><span class="s1">ExportadorDispositivos </span><span class="s2">{</span>
+
+    <span class="s0">private final </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">FichaDispositivo</span><span class="s2">&gt; </span><span class="s1">fichas</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">ExportadorCsv</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">FichaDispositivo</span><span class="s2">&gt; </span><span class="s1">fichas</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">fichas </span><span class="s2">= </span><span class="s1">List</span><span class="s2">.</span><span class="s1">copyOf</span><span class="s2">(</span><span class="s1">fichas</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/** Número de fichas que se exportarán. */</span>
+    <span class="s0">public int </span><span class="s1">cuantos</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">fichas</span><span class="s2">.</span><span class="s1">size</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String exportarCsv</span><span class="s2">() {</span>
+        <span class="s1">var texto </span><span class="s2">= </span><span class="s0">new </span><span class="s1">StringBuilder</span><span class="s2">();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">var ficha </span><span class="s2">: </span><span class="s1">fichas</span><span class="s2">) {</span>
+            <span class="s1">texto</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">ficha</span><span class="s2">.</span><span class="s1">nombre</span><span class="s2">()).</span><span class="s1">append</span><span class="s2">(</span><span class="s5">';'</span><span class="s2">).</span><span class="s1">append</span><span class="s2">(</span><span class="s1">ficha</span><span class="s2">.</span><span class="s1">direccionIp</span><span class="s2">()).</span><span class="s1">append</span><span class="s2">(</span><span class="s5">'</span><span class="s0">\n</span><span class="s5">'</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">texto</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">();</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

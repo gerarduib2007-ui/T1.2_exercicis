@@ -1,0 +1,113 @@
+<html>
+<head>
+<title>CatalogoEnMemoria.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #68a67e; font-style: italic;}
+.s5 { color: #67a37c; font-style: italic;}
+.s6 { color: #6aab73;}
+.s7 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+CatalogoEnMemoria.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">es</span><span class="s2">.</span><span class="s1">uib</span><span class="s2">.</span><span class="s1">prgava</span><span class="s2">.</span><span class="s1">tema1</span><span class="s2">.</span><span class="s1">ejercicios</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Ejercicio 1.2.4. La única de las tres implementaciones que cumple la interfaz entera.</span>
+ <span class="s3">*</span>
+ <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">Esta clase </span><span class="s4">&lt;strong&gt;</span><span class="s3">ya está escrita</span><span class="s4">&lt;/strong&gt;</span><span class="s3">. No la toques salvo para ajustar qué</span>
+ <span class="s3">* interfaces declara cuando hayas dividido {</span><span class="s5">@link </span><span class="s3">GestorDispositivos}.</span>
+ <span class="s3">*/</span>
+<span class="s0">public final class </span><span class="s1">CatalogoEnMemoria </span><span class="s0">implements </span><span class="s1">GestorDispositivos </span><span class="s2">{</span>
+
+    <span class="s0">private final </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">FichaDispositivo</span><span class="s2">&gt; </span><span class="s1">fichas </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">darDeAlta</span><span class="s2">(</span><span class="s1">String nombre</span><span class="s2">, </span><span class="s1">String direccionIp</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">existe</span><span class="s2">(</span><span class="s1">nombre</span><span class="s2">)) {</span>
+            <span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s6">&quot;ya existe: &quot; </span><span class="s2">+ </span><span class="s1">nombre</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s1">fichas</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">FichaDispositivo</span><span class="s2">(</span><span class="s1">nombre</span><span class="s2">, </span><span class="s1">direccionIp</span><span class="s2">));</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">borrar</span><span class="s2">(</span><span class="s1">String nombre</span><span class="s2">) {</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s7">0</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; </span><span class="s1">fichas</span><span class="s2">.</span><span class="s1">size</span><span class="s2">(); </span><span class="s1">i</span><span class="s2">++) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">fichas</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">i</span><span class="s2">).</span><span class="s1">nombre</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">nombre</span><span class="s2">)) {</span>
+                <span class="s1">fichas</span><span class="s2">.</span><span class="s1">remove</span><span class="s2">(</span><span class="s1">i</span><span class="s2">);</span>
+                <span class="s0">return</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">renombrar</span><span class="s2">(</span><span class="s1">String nombre</span><span class="s2">, </span><span class="s1">String nuevoNombre</span><span class="s2">) {</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s7">0</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; </span><span class="s1">fichas</span><span class="s2">.</span><span class="s1">size</span><span class="s2">(); </span><span class="s1">i</span><span class="s2">++) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">fichas</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">i</span><span class="s2">).</span><span class="s1">nombre</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">nombre</span><span class="s2">)) {</span>
+                <span class="s1">fichas</span><span class="s2">.</span><span class="s1">set</span><span class="s2">(</span><span class="s1">i</span><span class="s2">, </span><span class="s0">new </span><span class="s1">FichaDispositivo</span><span class="s2">(</span><span class="s1">nuevoNombre</span><span class="s2">, </span><span class="s1">fichas</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">i</span><span class="s2">).</span><span class="s1">direccionIp</span><span class="s2">()));</span>
+                <span class="s0">return</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public boolean </span><span class="s1">existe</span><span class="s2">(</span><span class="s1">String nombre</span><span class="s2">) {</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">var ficha </span><span class="s2">: </span><span class="s1">fichas</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">ficha</span><span class="s2">.</span><span class="s1">nombre</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">nombre</span><span class="s2">)) {</span>
+                <span class="s0">return true</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return false</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">&gt; </span><span class="s1">nombres</span><span class="s2">() {</span>
+        <span class="s1">var todos </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">var ficha </span><span class="s2">: </span><span class="s1">fichas</span><span class="s2">) {</span>
+            <span class="s1">todos</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">ficha</span><span class="s2">.</span><span class="s1">nombre</span><span class="s2">());</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">List</span><span class="s2">.</span><span class="s1">copyOf</span><span class="s2">(</span><span class="s1">todos</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public int </span><span class="s1">cuantos</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">fichas</span><span class="s2">.</span><span class="s1">size</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String exportarCsv</span><span class="s2">() {</span>
+        <span class="s1">var texto </span><span class="s2">= </span><span class="s0">new </span><span class="s1">StringBuilder</span><span class="s2">();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">var ficha </span><span class="s2">: </span><span class="s1">fichas</span><span class="s2">) {</span>
+            <span class="s1">texto</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">ficha</span><span class="s2">.</span><span class="s1">nombre</span><span class="s2">()).</span><span class="s1">append</span><span class="s2">(</span><span class="s6">';'</span><span class="s2">).</span><span class="s1">append</span><span class="s2">(</span><span class="s1">ficha</span><span class="s2">.</span><span class="s1">direccionIp</span><span class="s2">()).</span><span class="s1">append</span><span class="s2">(</span><span class="s6">'</span><span class="s0">\n</span><span class="s6">'</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">texto</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String exportarJson</span><span class="s2">() {</span>
+        <span class="s1">var texto </span><span class="s2">= </span><span class="s0">new </span><span class="s1">StringBuilder</span><span class="s2">(</span><span class="s6">&quot;[&quot;</span><span class="s2">);</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s7">0</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; </span><span class="s1">fichas</span><span class="s2">.</span><span class="s1">size</span><span class="s2">(); </span><span class="s1">i</span><span class="s2">++) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">i </span><span class="s2">&gt; </span><span class="s7">0</span><span class="s2">) {</span>
+                <span class="s1">texto</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s6">','</span><span class="s2">);</span>
+            <span class="s2">}</span>
+            <span class="s1">texto</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s6">&quot;{</span><span class="s0">\&quot;</span><span class="s6">nombre</span><span class="s0">\&quot;</span><span class="s6">:</span><span class="s0">\&quot;</span><span class="s6">&quot;</span><span class="s2">).</span><span class="s1">append</span><span class="s2">(</span><span class="s1">fichas</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">i</span><span class="s2">).</span><span class="s1">nombre</span><span class="s2">())</span>
+                 <span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s6">&quot;</span><span class="s0">\&quot;</span><span class="s6">,</span><span class="s0">\&quot;</span><span class="s6">ip</span><span class="s0">\&quot;</span><span class="s6">:</span><span class="s0">\&quot;</span><span class="s6">&quot;</span><span class="s2">).</span><span class="s1">append</span><span class="s2">(</span><span class="s1">fichas</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">i</span><span class="s2">).</span><span class="s1">direccionIp</span><span class="s2">()).</span><span class="s1">append</span><span class="s2">(</span><span class="s6">&quot;</span><span class="s0">\&quot;</span><span class="s6">}&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">texto</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s6">']'</span><span class="s2">).</span><span class="s1">toString</span><span class="s2">();</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

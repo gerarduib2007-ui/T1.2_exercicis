@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>InformeDiario.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #67a37c; font-style: italic;}
+.s5 { color: #68a67e; font-style: italic;}
+.s6 { color: #2aacb8;}
+.s7 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+InformeDiario.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">es</span><span class="s2">.</span><span class="s1">uib</span><span class="s2">.</span><span class="s1">prgava</span><span class="s2">.</span><span class="s1">tema1</span><span class="s2">.</span><span class="s1">ejercicios</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">es</span><span class="s2">.</span><span class="s1">uib</span><span class="s2">.</span><span class="s1">prgava</span><span class="s2">.</span><span class="s1">tema1</span><span class="s2">.</span><span class="s1">monitor</span><span class="s2">.</span><span class="s1">LectorResultados</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">es</span><span class="s2">.</span><span class="s1">uib</span><span class="s2">.</span><span class="s1">prgava</span><span class="s2">.</span><span class="s1">tema1</span><span class="s2">.</span><span class="s1">monitor</span><span class="s2">.</span><span class="s1">Resultado</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">es</span><span class="s2">.</span><span class="s1">uib</span><span class="s2">.</span><span class="s1">prgava</span><span class="s2">.</span><span class="s1">tema1</span><span class="s2">.</span><span class="s1">monitor</span><span class="s2">.</span><span class="s1">Servicio</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Ejercicio 1.2.5. Lo mismo que {</span><span class="s4">@link </span><span class="s3">InformeDiarioAcoplado}, pero con las dependencias</span>
+ <span class="s3">* invertidas.</span>
+ <span class="s3">*</span>
+ <span class="s3">* </span><span class="s5">&lt;p&gt;</span><span class="s3">Los colaboradores entran por el constructor y se declaran con el tipo de la interfaz. La</span>
+ <span class="s3">* salida también es un colaborador, para que una prueba pueda capturar el texto sin mirar la</span>
+ <span class="s3">* consola.</span>
+ <span class="s3">*/</span>
+<span class="s0">public final class </span><span class="s1">InformeDiario </span><span class="s2">{</span>
+
+    <span class="s0">private final </span><span class="s1">LectorResultados repositorio</span><span class="s2">;</span>
+    <span class="s0">private final </span><span class="s1">Salida salida</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">InformeDiario</span><span class="s2">(</span><span class="s1">LectorResultados repositorio</span><span class="s2">, </span><span class="s1">Salida salida</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">repositorio </span><span class="s2">= </span><span class="s1">repositorio</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">salida </span><span class="s2">= </span><span class="s1">salida</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/**</span>
+     <span class="s3">* Escribe el informe de un servicio, tres líneas en la salida y exactamente en este orden:</span>
+     <span class="s3">*</span>
+     <span class="s3">* </span><span class="s5">&lt;pre&gt;</span>
+     <span class="s3">* servicio: </span><span class="s5">&amp;lt;</span><span class="s3">nombre</span><span class="s5">&amp;gt;</span>
+     <span class="s3">* comprobaciones: </span><span class="s5">&amp;lt;</span><span class="s3">cuántas</span><span class="s5">&amp;gt;</span>
+     <span class="s3">* fallos: </span><span class="s5">&amp;lt;</span><span class="s3">cuántos</span><span class="s5">&amp;gt;</span>
+     <span class="s3">* </span><span class="s5">&lt;/pre&gt;</span>
+     <span class="s3">*/</span>
+    <span class="s0">public void </span><span class="s1">emitir</span><span class="s2">(</span><span class="s1">Servicio servicio</span><span class="s2">) {</span>
+        <span class="s1">var historial </span><span class="s2">= </span><span class="s1">repositorio</span><span class="s2">.</span><span class="s1">historial</span><span class="s2">(</span><span class="s1">servicio</span><span class="s2">);</span>
+        <span class="s0">int </span><span class="s1">fallos </span><span class="s2">= </span><span class="s6">0</span><span class="s2">;</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Resultado resultado </span><span class="s2">: </span><span class="s1">historial</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">resultado</span><span class="s2">.</span><span class="s1">esFallo</span><span class="s2">()) {</span>
+                <span class="s1">fallos</span><span class="s2">++;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s1">salida</span><span class="s2">.</span><span class="s1">escribir</span><span class="s2">(</span><span class="s7">&quot;servicio: &quot; </span><span class="s2">+ </span><span class="s1">servicio</span><span class="s2">.</span><span class="s1">nombre</span><span class="s2">());</span>
+        <span class="s1">salida</span><span class="s2">.</span><span class="s1">escribir</span><span class="s2">(</span><span class="s7">&quot;comprobaciones: &quot; </span><span class="s2">+ </span><span class="s1">historial</span><span class="s2">.</span><span class="s1">size</span><span class="s2">());</span>
+        <span class="s1">salida</span><span class="s2">.</span><span class="s1">escribir</span><span class="s2">(</span><span class="s7">&quot;fallos: &quot; </span><span class="s2">+ </span><span class="s1">fallos</span><span class="s2">);</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

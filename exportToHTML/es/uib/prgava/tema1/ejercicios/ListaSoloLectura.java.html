@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>ListaSoloLectura.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #68a67e; font-style: italic;}
+.s5 { color: #67a37c; font-style: italic;}
+.s6 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ListaSoloLectura.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">es</span><span class="s2">.</span><span class="s1">uib</span><span class="s2">.</span><span class="s1">prgava</span><span class="s2">.</span><span class="s1">tema1</span><span class="s2">.</span><span class="s1">ejercicios</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Ejercicio 1.2.3. Lista de solo lectura hecha bien: ofrece </span><span class="s4">&lt;em&gt;</span><span class="s3">solo</span><span class="s4">&lt;/em&gt; </span><span class="s3">lo que de verdad</span>
+ <span class="s3">* cumple.</span>
+ <span class="s3">*</span>
+ <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">Contiene una lista en lugar de ser una, así que no hereda ningún método que tenga que</span>
+ <span class="s3">* desmentir después. Compárala con {</span><span class="s5">@link </span><span class="s3">ListaSoloLecturaHeredada}.</span>
+ <span class="s3">*/</span>
+<span class="s0">public final class </span><span class="s1">ListaSoloLectura </span><span class="s2">{</span>
+
+    <span class="s0">private final </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">&gt; </span><span class="s1">elementos</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">ListaSoloLectura</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">&gt; </span><span class="s1">elementos</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">elementos </span><span class="s2">= </span><span class="s1">List</span><span class="s2">.</span><span class="s1">copyOf</span><span class="s2">(</span><span class="s1">elementos</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">tamano</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">elementos</span><span class="s2">.</span><span class="s1">size</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String get</span><span class="s2">(</span><span class="s0">int </span><span class="s1">indice</span><span class="s2">) {</span>
+        <span class="s0">return </span><span class="s1">elementos</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">indice</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">contiene</span><span class="s2">(</span><span class="s1">String elemento</span><span class="s2">) {</span>
+        <span class="s0">return </span><span class="s1">elementos</span><span class="s2">.</span><span class="s1">contains</span><span class="s2">(</span><span class="s1">elemento</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/** Para poder recorrerla en un for-each sin poder modificarla. */</span>
+    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">&gt; </span><span class="s1">comoLista</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">elementos</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/**</span>
+     <span class="s3">* Intenta añadir un elemento a cualquier lista y devuelve el tamaño resultante.</span>
+     <span class="s3">*</span>
+     <span class="s3">* </span><span class="s4">&lt;p&gt;</span><span class="s3">Con una {</span><span class="s5">@code </span><span class="s3">ArrayList} normal, la operación tiene éxito y devuelve el tamaño</span>
+     <span class="s3">* actualizado. Si se le pasa una {</span><span class="s5">@link </span><span class="s3">ListaSoloLecturaHeredada}, lanza</span>
+     <span class="s3">* {</span><span class="s5">@link </span><span class="s3">UnsupportedOperationException}. Esto viola el principio de sustitución:</span>
+     <span class="s3">* aunque la lista heredada es una {</span><span class="s5">@code </span><span class="s3">List</span><span class="s4">&lt;String&gt;</span><span class="s3">}, no puede usarse donde se espera</span>
+     <span class="s3">* una lista modificable sin cambiar el comportamiento esperado.</span>
+     <span class="s3">*/</span>
+    <span class="s0">public static int </span><span class="s1">añadirYDevolverTamano</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">&gt; </span><span class="s1">lista</span><span class="s2">) {</span>
+        <span class="s1">lista</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s6">&quot;nuevo elemento&quot;</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">lista</span><span class="s2">.</span><span class="s1">size</span><span class="s2">();</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
